@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
-import 'package:flow/api/ftmscan.dart';
+import 'package:flow/api/basescan.dart';
 import 'package:flow/components/stream_modal.dart';
 import 'package:flow/themes.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:random_avatar/random_avatar.dart';
-
+import 'package:web3dart/web3dart.dart';
 import '../components/add_contact_modal.dart';
+import "../utils/token.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,11 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map> streamingTokens = [];
 
   Future<void> gB() async {
-    // String b = await getBalance(address);
-    // if (!mounted) return;
-    // setState(() {
-    //   balance = b;
-    // });
+    EtherAmount b = await client.getBalance(EthereumAddress.fromHex(address));
+    if (!mounted) return;
+    setState(() {
+      balance = b.getValueInUnit(EtherUnit.ether).toString().substring(0, 7);
+    });
   }
 
   void gC() {

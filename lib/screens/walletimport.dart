@@ -86,7 +86,7 @@ class _WalletImportState extends State<WalletImport> {
                         GetStorage().write("privateKey", pK);
                         GetStorage()
                             .write("address", credentials.address.toString());
-                        Get.toNamed("/index");
+                        Get.toNamed("/home");
                       },
                     ),
                   ],
