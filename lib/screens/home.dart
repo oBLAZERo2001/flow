@@ -80,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF1FAEE),
       body: RefreshIndicator(
         backgroundColor: primaryColor,
         color: Colors.white,
@@ -210,11 +211,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color:
-                                        const Color.fromARGB(33, 27, 27, 27))),
+                              color: const Color(0xff151515),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                             padding: const EdgeInsets.all(12),
                             child: GestureDetector(
                               onTap: () => Get.toNamed("/send"),
@@ -222,11 +221,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 22,
-                                    backgroundColor: primaryColor,
+                                    backgroundColor: Color(0xffF1FAEE),
                                     child: Icon(
                                       Icons.arrow_outward_sharp,
                                       size: 26,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                   ),
                                   SizedBox(width: 12),
@@ -234,7 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "Send",
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.black87,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -247,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: const Color(0xff151515),
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
                                     color:
@@ -259,13 +257,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   CircleAvatar(
                                       radius: 22,
-                                      backgroundColor: primaryColor,
+                                      backgroundColor: Color(0xffF1FAEE),
                                       child: RotatedBox(
                                         quarterTurns: 2,
                                         child: Icon(
                                           Icons.arrow_outward_sharp,
                                           size: 26,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                       )),
                                   SizedBox(width: 12),
@@ -273,7 +271,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "Request",
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.black87,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   )
@@ -303,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -335,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ? const CircleAvatar(
                                           radius: 40,
                                           backgroundColor: Color.fromARGB(
-                                              255, 158, 158, 158),
+                                              255, 164, 164, 164),
                                           child: Center(
                                             child: Icon(
                                               Icons.add,
@@ -362,14 +359,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 24),
                     // Recent Activity
-                    const Row(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Your flows🌊",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Get.toNamed("/list"),
+                          child: const Text(
+                            "Create stream",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
@@ -394,10 +403,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           AssetImage("assets/empty-list.png"),
                                       height: 60,
                                     ),
+                                    SizedBox(height: 8),
                                     Text("You have zero streaming services...",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            color: Colors.black)),
+                                            color: Color(0xffC5C5C5))),
                                   ],
                                 ),
                               )

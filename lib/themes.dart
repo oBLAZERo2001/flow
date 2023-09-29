@@ -7,7 +7,7 @@ ThemeData themeData() {
   final ThemeData base = ThemeData();
   return base.copyWith(
     primaryColor: primaryColor,
-    scaffoldBackgroundColor: const Color.fromARGB(255, 27, 27, 27),
+    scaffoldBackgroundColor: Colors.white,
     appBarTheme: base.appBarTheme.copyWith(
       color: Colors.white,
       elevation: 0,

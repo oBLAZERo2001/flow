@@ -1,4 +1,5 @@
 import 'package:flow/screens/index.dart';
+import 'package:flow/screens/tokens.dart';
 import 'package:flow/screens/splash.dart';
 import 'package:flow/screens/home.dart';
 import 'package:flow/screens/wallet.dart';
@@ -38,6 +39,10 @@ class Routers {
     GetPage(
       name: '/welcome',
       page: () => const Welcome(),
+    ),
+    GetPage(
+      name: '/list',
+      page: () => const TokenScreen(),
     ),
   ];
 
