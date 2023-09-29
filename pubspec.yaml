@@ -48,10 +48,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-    - family: SplineSansMono
+    - family: Onest
       fonts:
-        - asset: fonts/SplineSansMono-Bold.ttf
-        - asset: fonts/SplineSansMono-Light.ttf
-        - asset: fonts/SplineSansMono-Medium.ttf
-        - asset: fonts/SplineSansMono-Regular.ttf
-        - asset: fonts/SplineSansMono-SemiBold.ttf
+        - asset: fonts/Onest-Bold.ttf
+        - asset: fonts/Onest-Light.ttf
+        - asset: fonts/Onest-Medium.ttf
+        - asset: fonts/Onest-Regular.ttf
+        - asset: fonts/Onest-SemiBold.ttf

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -15,7 +17,13 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-     
+      String address = GetStorage().read("address") ?? "";
+      await Future.delayed(const Duration(seconds: 2));
+      if (address != isUndefinedOrNull && address != "") {
+        Get.offAndToNamed("/index");
+      } else {
+        Get.offAndToNamed("/welcome");
+      }
     });
   }
 
@@ -36,7 +44,7 @@ class _SplashState extends State<Splash> {
               backgroundColor: Colors.transparent,
             ),
             SizedBox(
-              width: (MediaQuery.sizeOf(context).width / 100) * 25,
+              width: (MediaQuery.sizeOf(context).width / 100) * 15,
               child: const Center(
                   child: CircularProgressIndicator(
                 color: Colors.white,
