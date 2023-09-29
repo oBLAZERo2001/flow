@@ -25,36 +25,36 @@ class _TokenScreenState extends State<TokenScreen> {
   List<Map> streamingTokens = [];
   List<Map> addressList = [
     {
-      "name": "Super USDC",
-      "symbol": "USDCx",
-      "address": "0xd04383398dd2426297da660f9cca3d439af9ce1b",
-      "balance": 0,
-      "currentFlowRate": 0,
-      "image": "assets/celo_logo.png",
-    },
-    {
-      "name": "Super Dai Stablecoin",
-      "symbol": "DAIx",
-      "address": "0x708169c8c87563ce904e0a7f3bfc1f3b0b767f41",
-      "balance": 0,
-      "currentFlowRate": 0,
-      "image": "assets/cusd.png",
-    },
-    {
-      "name": "Super USD Base Coin",
-      "symbol": "USDbCx",
-      "address": "0x4db26c973fae52f43bd96a8776c2bf1b0dc29556",
-      "balance": 0,
-      "currentFlowRate": 0,
-      "image": "assets/cusd.png",
-    },
-    {
       "name": "Super ETH",
       "symbol": "ETHx",
-      "address": "0x46fd5cfb4c12d87acd3a13e92baa53240c661d93",
+      "address": "0x7ffce315b2014546ba461d54eded7aac70df4f53",
       "balance": 0,
       "currentFlowRate": 0,
-      "image": "assets/cusd.png",
+      "image": "assets/eth.png",
+    },
+    {
+      "name": "Super fDAI Fake Token",
+      "symbol": "DAIx",
+      "address": "0x4ec89df8b16474a9333bb94a5f21197ef89a8d87",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/dai.png",
+    },
+    {
+      "name": "Super fTUSD Fake Token",
+      "symbol": "fTUSDx",
+      "address": "0x3012dd229e227ba4b366fceac014440cdc900378",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/tusd.png",
+    },
+    {
+      "name": "Super fUSDC Fake Token",
+      "symbol": "fUSDCx",
+      "address": "0x15da1146dc9a7e10b3a9b256c9bebfa79fa8edc3",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/usdc.jpg",
     },
   ];
 

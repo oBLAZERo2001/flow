@@ -93,7 +93,20 @@ class TokenActions extends StatelessWidget {
                             color: Color.fromARGB(255, 27, 27, 27)),
                         height: 12),
                     GestureDetector(
-                      onTap: () => Get.toNamed("/recieve"),
+                      onTap: () async {
+                        await showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                            ),
+                            context: context,
+                            builder: (_) {
+                              return BalanceModal(
+                                token: token,
+                              );
+                            });
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 48, 48, 48),

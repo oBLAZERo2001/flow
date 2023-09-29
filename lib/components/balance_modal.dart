@@ -57,9 +57,10 @@ class _BalanceModalState extends State<BalanceModal> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    "Create Stream",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+                  Text(
+                    "Stream ${widget.token['name']}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 24),
                   ),
                   const SizedBox(height: 24),
                   // Address
