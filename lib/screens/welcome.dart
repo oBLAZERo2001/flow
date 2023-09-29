@@ -54,14 +54,14 @@ class WelcomeState extends State<Welcome> {
               child: Column(children: [
                 Button(
                   title: "Import Wallet",
-                  onClick: () => Get.toNamed("/importwallet"),
+                  onClick: () => Get.toNamed("/walletimport"),
                 ),
                 const SizedBox(height: 8),
                 Button(
                   title: "Create Wallet",
                   backgroundColor: Colors.black87,
                   fontColor: Colors.white,
-                  onClick: () => Get.toNamed("/createwallet"),
+                  onClick: () => Get.toNamed("/wallet"),
                 )
               ]),
             )

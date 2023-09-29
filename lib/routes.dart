@@ -1,4 +1,6 @@
+import 'package:flow/screens/index.dart';
 import 'package:flow/screens/splash.dart';
+import 'package:flow/screens/walletimport.dart';
 import 'package:flow/screens/welcome.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +11,14 @@ class Routers {
     GetPage(
       name: '/',
       page: () => const Splash(),
+    ),
+    GetPage(
+      name: '/index',
+      page: () => const IndexScreen(),
+    ),
+    GetPage(
+      name: '/walletimport',
+      page: () => const WalletImport(),
     ),
     GetPage(
       name: '/welcome',
