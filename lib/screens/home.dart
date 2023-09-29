@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flow/api/ftmscan.dart';
+import 'package:flow/components/stream_modal.dart';
 import 'package:flow/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:random_avatar/random_avatar.dart';
-import 'package:web3dart/web3dart.dart';
-import "../utils/time.dart";
 
 import '../components/add_contact_modal.dart';
 
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String balance = "0";
   List contacts = [];
   List transactions = [];
+  List<Map> streamingTokens = [];
 
   Future<void> gB() async {
     // String b = await getBalance(address);
@@ -105,13 +106,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/profile-image.jpeg"),
+                                    AssetImage("assets/profile.png"),
                                 radius: 30),
                             SizedBox(width: 16),
                             Text(
-                              "Morning, Ser!",
+                              "Dashboard",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 18),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 24,
+                                  color: Colors.black),
                             )
                           ],
                         ),
@@ -329,10 +332,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 children: [
                                   (ind == contacts.length
-                                      ? CircleAvatar(
+                                      ? const CircleAvatar(
                                           radius: 40,
-                                          backgroundColor: Colors.grey.shade800,
-                                          child: const Center(
+                                          backgroundColor: Color.fromARGB(
+                                              255, 158, 158, 158),
+                                          child: Center(
                                             child: Icon(
                                               Icons.add,
                                               color: Colors.white,
@@ -358,25 +362,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 24),
                     // Recent Activity
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    const Row(
                       children: [
-                        const Text(
-                          "Recent Activity",
+                        Text(
+                          "Your flows🌊",
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.toNamed("/transactions"),
-                          child: const Text(
-                            "See all",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -384,87 +377,105 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(top: 12),
-                        padding: const EdgeInsets.only(top: 10),
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 27, 27, 27),
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(32),
                           ),
                         ),
-                        child: transactions.isEmpty
+                        child: streamingTokens.isEmpty
                             ? const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text("You haven't made any transactions📥",
+                                    Image(
+                                      image:
+                                          AssetImage("assets/empty-list.png"),
+                                      height: 60,
+                                    ),
+                                    Text("You have zero streaming services...",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w600)),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black)),
                                   ],
                                 ),
                               )
                             : ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: transactions.isNotEmpty
-                                    ? transactions.length >= 4
-                                        ? 4
-                                        : transactions.length
-                                    : 0,
+                                itemCount: streamingTokens.length,
                                 itemBuilder: (_, ind) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color:
-                                                      Colors.grey.shade200))),
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                          backgroundColor: Colors.grey.shade100,
-                                          child: Center(
-                                            child: ownAddress(
-                                                    transactions[ind]['to'])
-                                                ? RotatedBox(
-                                                    quarterTurns: 2,
-                                                    child: Icon(
-                                                        Icons
-                                                            .arrow_outward_sharp,
-                                                        color: Colors
-                                                            .green.shade400))
-                                                : Icon(
-                                                    Icons.arrow_outward_sharp,
-                                                    color: Colors.red.shade400),
+                                  return GestureDetector(
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20)),
                                           ),
+                                          context: context,
+                                          builder: (_) {
+                                            return StreamModal(
+                                                token: streamingTokens[ind]);
+                                          });
+                                      gB();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 48, 48, 48),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
-                                        title: Text(
-                                          "${ownAddress(transactions[ind]['to']) ? "Recieved from" : "Sent to"} ${(ownAddress(transactions[ind]['to']) ? transactions[ind]['from'] : transactions[ind]['to'])?.substring(37, 42)}",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey.shade800),
-                                        ),
-                                        subtitle: Text(
-                                          TimeFormatter.formattTime(DateTime
-                                              .fromMillisecondsSinceEpoch(
-                                                  int.parse(transactions[ind]
-                                                          ['timeStamp']) *
-                                                      1000)),
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey.shade500,
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundImage: AssetImage(
+                                                streamingTokens[ind]['image']),
+                                            backgroundColor: Colors.white,
                                           ),
-                                        ),
-                                        trailing: Text(
-                                          "${EtherAmount.fromBase10String(EtherUnit.wei, transactions[ind]['value']).getValueInUnit(EtherUnit.ether).toStringAsFixed(2)} FRAX USD",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: ownAddress(
-                                                    transactions[ind]['to'])
-                                                ? Colors.green.shade400
-                                                : Colors.grey.shade800,
-                                            fontSize: 18,
+                                          title: Text(
+                                            "${streamingTokens[ind]['symbol']}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                          subtitle: Text(
+                                            "${streamingTokens[ind]['name']}",
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          trailing: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              AnimatedFlipCounter(
+                                                duration:
+                                                    const Duration(seconds: 1),
+                                                value: streamingTokens[ind]
+                                                    ['balance'],
+                                                fractionDigits: 9,
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                (streamingTokens[ind][
+                                                                'currentFlowRate'] *
+                                                            31 *
+                                                            24 *
+                                                            60 *
+                                                            60)
+                                                        .toStringAsFixed(2) +
+                                                    "/mo",
+                                                style: TextStyle(
+                                                    color: streamingTokens[ind][
+                                                                'currentFlowRate'] <
+                                                            0
+                                                        ? Colors.red
+                                                        : Colors.green),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
