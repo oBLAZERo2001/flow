@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
       String address = GetStorage().read("address") ?? "";
       await Future.delayed(const Duration(seconds: 2));
       if (address != isUndefinedOrNull && address != "") {
-        Get.offAndToNamed("/index");
+        Get.offAndToNamed("/home");
       } else {
         Get.offAndToNamed("/welcome");
       }

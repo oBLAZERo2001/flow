@@ -1,6 +1,8 @@
 import 'package:flow/screens/index.dart';
 import 'package:flow/screens/splash.dart';
+import 'package:flow/screens/home.dart';
 import 'package:flow/screens/wallet.dart';
+import 'package:flow/screens/settings.dart';
 import 'package:flow/screens/walletimport.dart';
 import 'package:flow/screens/welcome.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,10 @@ class Routers {
       name: '/',
       page: () => const Splash(),
     ),
-   
+    GetPage(
+      name: '/settings',
+      page: () => const Settings(),
+    ),
     GetPage(
       name: '/index',
       page: () => const IndexScreen(),
@@ -21,6 +26,10 @@ class Routers {
     GetPage(
       name: '/wallet',
       page: () => const Wallet(),
+    ),
+    GetPage(
+      name: '/home',
+      page: () => const HomeScreen(),
     ),
     GetPage(
       name: '/walletimport',
