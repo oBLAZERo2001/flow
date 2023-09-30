@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flow/api/basescan.dart';
+import 'package:flow/api/tokens.dart';
 import 'package:flow/components/stream_modal.dart';
 import 'package:flow/themes.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,42 @@ class _HomeScreenState extends State<HomeScreen> {
   String balance = "0";
   List contacts = [];
   List transactions = [];
+  late Timer streamTimer;
   List<Map> streamingTokens = [];
+  List<Map> addressList = [
+    {
+      "name": "Super ETH",
+      "symbol": "ETHx",
+      "address": "0x7ffce315b2014546ba461d54eded7aac70df4f53",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/eth.png",
+    },
+    {
+      "name": "Super fDAI Fake Token",
+      "symbol": "DAIx",
+      "address": "0x4ec89df8b16474a9333bb94a5f21197ef89a8d87",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/dai.png",
+    },
+    {
+      "name": "Super fTUSD Fake Token",
+      "symbol": "fTUSDx",
+      "address": "0x3012dd229e227ba4b366fceac014440cdc900378",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/tusd.png",
+    },
+    {
+      "name": "Super fUSDC Fake Token",
+      "symbol": "fUSDCx",
+      "address": "0x15da1146dc9a7e10b3a9b256c9bebfa79fa8edc3",
+      "balance": 0,
+      "currentFlowRate": 0,
+      "image": "assets/usdc.jpg",
+    },
+  ];
 
   Future<void> gB() async {
     EtherAmount b = await client.getBalance(EthereumAddress.fromHex(address));
@@ -33,6 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       balance = b.getValueInUnit(EtherUnit.ether).toString().substring(0, 7);
     });
+    // Streaming token balances
+    for (var i = 0; i < addressList.length; i++) {
+      double b = await getBalance(address, addressList[i]['address']);
+      setState(() {
+        addressList[i]['balance'] = b;
+      });
+    }
+    gST();
   }
 
   void gC() {
@@ -64,6 +109,60 @@ class _HomeScreenState extends State<HomeScreen> {
           return const AddContactModal();
         });
     gC();
+  }
+
+  String getImage(String address) {
+    switch (address) {
+      case "0x42bb40bf79730451b11f6de1cba222f17b87afd7":
+        return "assets/eth.png";
+      default:
+        return "assets/eth.png";
+    }
+  }
+
+  Future<void> gST() async {
+    List a = await getRecieverStreamingTokens(address);
+    List b = await getSenderStreamingTokens(address);
+    a = a.map<dynamic>((e) {
+      e['currentFlowRate'] = '-${e['currentFlowRate']}';
+      return e;
+    }).toList();
+    b.addAll(a);
+    if (!mounted) return;
+
+    streamingTokens = [];
+    for (var i = 0; i < b.length; i++) {
+      final token = b[i]['token'];
+      token['currentFlowRate'] =
+          EtherAmount.inWei(BigInt.from(double.parse(b[i]['currentFlowRate'])))
+              .getValueInUnit(EtherUnit.ether);
+      token['image'] = getImage(token['id']);
+      token['receiver'] = b[i]['receiver']['id'];
+      token['sender'] = b[i]['sender']['id'];
+      final bT =
+          addressList.firstWhereOrNull((e) => token['id'] == e['address']);
+      if (bT == null) return;
+      token['balance'] = bT['balance'];
+
+      setState(() {
+        streamingTokens.add(token);
+      });
+    }
+    startStreamTimer();
+  }
+
+  void startStreamTimer() {
+    streamTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) async {
+        for (var i = 0; i < streamingTokens.length; i++) {
+          setState(() {
+            streamingTokens[i]['balance'] +=
+                streamingTokens[i]['currentFlowRate'];
+          });
+        }
+      },
+    );
   }
 
   bool ownAddress(add) {
@@ -435,7 +534,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: const Color.fromARGB(
-                                              255, 48, 48, 48),
+                                              255, 37, 37, 37),
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         ),
