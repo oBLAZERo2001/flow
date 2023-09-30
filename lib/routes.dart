@@ -1,7 +1,10 @@
 import 'package:flow/screens/index.dart';
+import 'package:flow/screens/recieve.dart';
+import 'package:flow/screens/send.dart';
 import 'package:flow/screens/tokens.dart';
 import 'package:flow/screens/splash.dart';
 import 'package:flow/screens/home.dart';
+import 'package:flow/screens/transactions.dart';
 import 'package:flow/screens/wallet.dart';
 import 'package:flow/screens/settings.dart';
 import 'package:flow/screens/walletimport.dart';
@@ -43,6 +46,18 @@ class Routers {
     GetPage(
       name: '/list',
       page: () => const TokenScreen(),
+    ),
+    GetPage(
+      name: '/send',
+      page: () => const SendScreen(),
+    ),
+    GetPage(
+      name: '/recieve',
+      page: () => const RecieveScreen(),
+    ),
+    GetPage(
+      name: '/transactions',
+      page: () => const TransactionsScreen(),
     ),
   ];
 

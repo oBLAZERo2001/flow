@@ -316,7 +316,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             padding: const EdgeInsets.all(12),
                             child: GestureDetector(
-                              onTap: () => Get.toNamed("/send"),
+                              onTap: () => Get.toNamed("/send", arguments: {
+                                "symbol": "ETH",
+                                "address": "0x0"
+                              }),
                               child: const Row(
                                 children: [
                                   CircleAvatar(
