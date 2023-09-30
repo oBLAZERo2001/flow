@@ -251,7 +251,7 @@ class _TokenScreenState extends State<TokenScreen> {
                                           24 *
                                           60 *
                                           60)
-                                      .toStringAsFixed(2) +
+                                      .toStringAsFixed(4) +
                                   "/mo",
                               style: TextStyle(
                                   color: addressList[ind]['currentFlowRate'] < 0
