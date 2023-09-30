@@ -81,7 +81,7 @@ class _SendScreenState extends State<SendScreen> {
       setState(() {
         loading = false;
       });
-      Get.offNamed("/index");
+      Get.offNamed("/transactions");
       await Future.delayed(const Duration(seconds: 1));
       Get.snackbar("Successfully sent.",
           "${controller.text} has been sent successfully.",

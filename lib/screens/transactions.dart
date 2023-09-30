@@ -40,10 +40,14 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("Transactions"),
-          backgroundColor: const Color.fromARGB(255, 27, 27, 27)),
-      backgroundColor: const Color.fromARGB(255, 27, 27, 27),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "Transactions",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: const Color(0xffF1FAEE),
+      ),
+      backgroundColor: const Color(0xffF1FAEE),
       body: RefreshIndicator(
         backgroundColor: primaryColor,
         color: Colors.white,
@@ -83,8 +87,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           title: Text(
                             "${ownAddress(transactions[ind]['to']) ? "Recieved from" : "Sent to"} ${(ownAddress(transactions[ind]['to']) ? transactions[ind]['from'] : transactions[ind]['to'])?.substring(37, 42)}",
                             style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           subtitle: Text(
                             TimeFormatter.formattTime(
@@ -93,7 +97,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                         1000)),
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
-                              color: Colors.white54,
                             ),
                           ),
                           trailing: Text(
@@ -102,7 +105,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                               fontWeight: FontWeight.bold,
                               color: ownAddress(transactions[ind]['to'])
                                   ? Colors.green
-                                  : Colors.white,
+                                  : Colors.black,
                               fontSize: 18,
                             ),
                           ),
