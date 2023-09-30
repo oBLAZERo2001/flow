@@ -15,7 +15,7 @@ class RecieveScreen extends StatefulWidget {
 }
 
 class _RecieveScreenState extends State<RecieveScreen> {
-  final address = GetStorage().read("address");
+  final address = GetStorage().read('address');
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _RecieveScreenState extends State<RecieveScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
           title: const Text(
-        "Recieve Payment",
+        'Recieve Payment',
         style: TextStyle(color: Colors.black87),
       )),
       body: SizedBox(
@@ -33,7 +33,7 @@ class _RecieveScreenState extends State<RecieveScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "Scan using Celo Stream",
+                'Scan using app.',
                 style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.w500,
@@ -43,13 +43,13 @@ class _RecieveScreenState extends State<RecieveScreen> {
               ),
               const SizedBox(height: 24),
               QrImageView(
-                data: jsonEncode({"address": address}),
+                data: jsonEncode({'address': address}),
                 version: QrVersions.auto,
                 size: 250.0,
               ),
               const SizedBox(height: 24),
               const Text(
-                "Wallet Address",
+                'Wallet Address',
                 style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.w500,
@@ -60,7 +60,7 @@ class _RecieveScreenState extends State<RecieveScreen> {
               GestureDetector(
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: address));
-                  Get.snackbar("Copied!", "Address copied to clipboard.",
+                  Get.snackbar('Copied!', 'Address copied to clipboard.',
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: primaryColor);
                 },
@@ -68,7 +68,7 @@ class _RecieveScreenState extends State<RecieveScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${address.substring(0, 6)} **** **** ${address.substring(38, 42)}",
+                      '${address.substring(0, 6)} **** **** ${address.substring(38, 42)}',
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w500,
